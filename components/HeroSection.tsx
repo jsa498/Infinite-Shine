@@ -139,15 +139,15 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-secondary">
-      {/* Content - Left Side */}
-      <div className="absolute left-0 top-0 w-full lg:w-[45%] h-full z-20 bg-secondary/90 lg:bg-transparent">
-        <div className="h-full flex flex-col justify-center px-6 lg:px-12">
+    <section className="relative min-h-screen w-full overflow-hidden bg-secondary">
+      {/* Content Section */}
+      <div className="relative w-full lg:w-[45%] min-h-screen lg:absolute lg:left-0 lg:top-0 z-20">
+        <div className="h-full flex flex-col justify-center px-6 lg:px-12 py-20 lg:py-0 bg-secondary/90 lg:bg-transparent">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-xl"
+            className="max-w-xl mx-auto lg:mx-0"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               Experience Luxury Car Detailing
@@ -192,39 +192,49 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Slider - Right Side */}
-      <div className="absolute right-0 top-0 w-full lg:w-[65%] h-full overflow-hidden">
+      {/* Slider Section */}
+      <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[65%] h-[300px] lg:h-screen overflow-hidden">
         <div className="relative h-full w-full">
-          {slides.map((slide, index) => (
-            <motion.div
-              key={slide.image}
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: index === currentSlide ? 1 : 0,
-                scale: index === currentSlide ? 1 : 1.1
-              }}
-              transition={{ duration: 0.7 }}
-            >
-              <div className="relative w-full h-full">
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  className="object-cover object-center"
-                  priority={index === 0}
-                  sizes="(max-width: 1024px) 100vw, 65vw"
-                  quality={90}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent" />
-              </div>
-            </motion.div>
-          ))}
+          <div className="flex lg:block overflow-x-scroll lg:overflow-x-visible no-scrollbar">
+            {slides.map((slide, index) => (
+              <motion.div
+                key={slide.image}
+                className={`relative lg:absolute inset-0 ${
+                  index === currentSlide ? 'lg:block' : 'lg:hidden'
+                }`}
+                style={{
+                  flex: '0 0 100%',
+                  width: '100%',
+                  height: '100%'
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: index === currentSlide ? 1 : 0,
+                  scale: index === currentSlide ? 1 : 1.1,
+                  x: `${(index - currentSlide) * 100}%`
+                }}
+                transition={{ duration: 0.7 }}
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt}
+                    fill
+                    className="object-cover object-center"
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 65vw"
+                    quality={90}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent lg:opacity-100 opacity-50" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30">
+      <div className="absolute bottom-4 lg:bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30">
         <div 
           ref={progressBarRef}
           className="relative w-32 h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer"
