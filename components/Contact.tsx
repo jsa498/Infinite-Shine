@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { MapPinIcon, PhoneIcon, ClockIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import { PhoneIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -18,7 +18,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-white mb-3">Visit Our Luxurious Location</h2>
+          <h2 className="text-3xl font-bold text-white mb-3">Contact Us</h2>
           <p className="text-base text-gray-300">
             Explore our state-of-the-art facility where your car receives the royal treatment.
           </p>
@@ -43,19 +43,11 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPinIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold text-base">Our Address</p>
-                    <p className="text-gray-300 text-sm">373 Fenton Street</p>
-                    <p className="text-gray-300 text-sm">New Westminster, V3M5J1</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
                   <PhoneIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <p className="text-white font-semibold text-base">Contact Number</p>
-                    <a href="tel:+16047258010" className="text-gray-300 text-sm hover:text-primary transition-all duration-300">
-                      +1 (604) 725-8010
+                    <a href="tel:+16045120061" className="text-gray-300 text-sm hover:text-primary transition-all duration-300">
+                      +1 (604) 512-0061
                     </a>
                   </div>
                 </div>
