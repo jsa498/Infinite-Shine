@@ -9,6 +9,18 @@ const images = [
   { src: '/gallery/luxury-car-3.jpg', alt: 'Luxury Car Detail 3' },
   { src: '/gallery/luxury-car-4.jpg', alt: 'Luxury Car Detail 4' },
   { src: '/gallery/luxury-car-5.jpg', alt: 'Luxury Car Detail 5' },
+  { src: '/gallery/IMG_DB094C056616-1.png', alt: 'Luxury Car Detail 6' },
+  { src: '/gallery/IMG_DAD1619AE95C-1.png', alt: 'Luxury Car Detail 7' },
+  { src: '/gallery/IMG_B53794057176-1.png', alt: 'Luxury Car Detail 8' },
+  { src: '/gallery/IMG_2434525969D0-1.png', alt: 'Luxury Car Detail 9' },
+  { src: '/gallery/IMG_794DA37856DE-1.png', alt: 'Luxury Car Detail 10' },
+  { src: '/gallery/IMG_42E09B7AE097-1.png', alt: 'Luxury Car Detail 11' },
+  { src: '/gallery/IMG_9FBB0810130B-1.png', alt: 'Luxury Car Detail 12' },
+  { src: '/gallery/IMG_6AB0D65EBCF4-1.png', alt: 'Luxury Car Detail 13' },
+  { src: '/gallery/IMG_05F3E572020C-1.png', alt: 'Luxury Car Detail 14' },
+  { src: '/gallery/IMG_4E91089CEAA6-1.png', alt: 'Luxury Car Detail 15' },
+  { src: '/gallery/IMG_4E7600CC6150-1.png', alt: 'Luxury Car Detail 16' },
+  { src: '/gallery/IMG_3EB58DD25C6A-1.png', alt: 'Luxury Car Detail 17' },
 ]
 
 export default function Gallery() {
