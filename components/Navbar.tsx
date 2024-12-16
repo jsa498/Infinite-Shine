@@ -52,17 +52,17 @@ export default function Navbar() {
   }, [lastScrollY, hideTimeout])
 
   const navClasses = `
-    fixed w-full z-50 transition-all duration-300
+    fixed z-50 transition-all duration-300
     ${scrollPosition > 50 
-      ? 'bg-white/10 backdrop-blur-md rounded-full mx-4 mt-4 w-[calc(100%-2rem)]' 
-      : 'bg-transparent w-full'
+      ? 'bg-white/10 backdrop-blur-md rounded-full left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] top-4' 
+      : 'bg-transparent w-full top-0'
     }
     ${isVisible ? 'translate-y-0' : '-translate-y-[200%]'}
   `
 
   return (
     <nav className={navClasses}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -105,7 +105,7 @@ export default function Navbar() {
           {/* Desktop Right Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link 
-              href="tel:+16047258010"
+              href="tel:+16045120061"
               className="text-white hover:text-primary transition-all duration-300 flex items-center"
             >
               Call us
@@ -179,7 +179,7 @@ export default function Navbar() {
               </Link>
               <div className="pt-4 flex flex-col items-center space-y-4 w-full px-6">
                 <Link 
-                  href="tel:+16047258010"
+                  href="tel:+16045120061"
                   className="text-white hover:text-primary transition-all duration-300 flex items-center justify-center text-lg w-full py-2"
                   onClick={() => setIsOpen(false)}
                 >
