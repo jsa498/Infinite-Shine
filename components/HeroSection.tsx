@@ -5,23 +5,51 @@ import { StarIcon, UserGroupIcon, HandThumbUpIcon } from '@heroicons/react/24/so
 
 const slides = [
   {
-    image: '/gallery/luxury-car-1.jpg',
+    image: '/gallery/IMG_05F3E572020C-1.png',
     alt: 'Luxury Car Detailing'
   },
   {
-    image: '/gallery/luxury-car-2.jpg',
+    image: '/gallery/IMG_2434525969D0-1.png',
     alt: 'Professional Car Care'
   },
   {
-    image: '/gallery/luxury-car-3.jpg',
+    image: '/gallery/IMG_3EB58DD25C6A-1.png',
     alt: 'Premium Detailing Service'
   },
   {
-    image: '/gallery/luxury-car-4.jpg',
+    image: '/gallery/IMG_42E09B7AE097-1.png',
     alt: 'Exotic Car Detailing'
   },
   {
-    image: '/gallery/luxury-car-5.jpg',
+    image: '/gallery/IMG_4E7600CC6150-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_4E91089CEAA6-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_6AB0D65EBCF4-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_794DA37856DE-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_9FBB0810130B-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_B53794057176-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_DAD1619AE95C-1.png',
+    alt: 'Luxury Vehicle Care'
+  },
+  {
+    image: '/gallery/IMG_DB094C056616-1.png',
     alt: 'Luxury Vehicle Care'
   }
 ]
@@ -142,25 +170,17 @@ export default function HeroSection() {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30 flex space-x-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setIsTransitioning(true)
-              setTimeout(() => {
-                setCurrentSlide(index)
-                setIsTransitioning(false)
-              }, 500)
+      <div className="absolute bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30">
+        <div className="relative w-32 h-1 bg-white/20 rounded-full overflow-hidden">
+          <motion.div
+            className="absolute left-0 top-0 h-full bg-primary rounded-full"
+            initial={{ width: '0%' }}
+            animate={{ 
+              width: `${((currentSlide + 1) / slides.length) * 100}%`
             }}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? 'bg-primary w-8'
-                : 'bg-white/50 hover:bg-white/80'
-            }`}
-            disabled={isTransitioning}
+            transition={{ duration: 0.3 }}
           />
-        ))}
+        </div>
       </div>
     </section>
   )
