@@ -141,7 +141,7 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-secondary">
       {/* Content Section */}
-      <div className="relative w-full lg:w-[45%] min-h-screen lg:absolute lg:left-0 lg:top-0 z-20">
+      <div className="relative w-full lg:absolute lg:left-0 lg:top-0 lg:w-[45%] min-h-screen z-20">
         <div className="h-full flex flex-col justify-center px-6 lg:px-12 py-20 lg:py-0 bg-secondary/90 lg:bg-transparent">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -193,20 +193,15 @@ export default function HeroSection() {
       </div>
 
       {/* Slider Section */}
-      <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[65%] h-[300px] lg:h-screen overflow-hidden">
+      <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[65%] h-[400px] lg:h-screen">
         <div className="relative h-full w-full">
-          <div className="flex lg:block overflow-x-scroll lg:overflow-x-visible no-scrollbar">
+          <div className="flex lg:block w-full h-full">
             {slides.map((slide, index) => (
               <motion.div
                 key={slide.image}
-                className={`relative lg:absolute inset-0 ${
+                className={`relative w-full h-full flex-shrink-0 ${
                   index === currentSlide ? 'lg:block' : 'lg:hidden'
                 }`}
-                style={{
-                  flex: '0 0 100%',
-                  width: '100%',
-                  height: '100%'
-                }}
                 initial={{ opacity: 0 }}
                 animate={{ 
                   opacity: index === currentSlide ? 1 : 0,
@@ -215,18 +210,16 @@ export default function HeroSection() {
                 }}
                 transition={{ duration: 0.7 }}
               >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={slide.image}
-                    alt={slide.alt}
-                    fill
-                    className="object-cover object-center"
-                    priority={index === 0}
-                    sizes="(max-width: 1024px) 100vw, 65vw"
-                    quality={90}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent lg:opacity-100 opacity-50" />
-                </div>
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  fill
+                  className="object-cover object-center"
+                  priority={index === 0}
+                  sizes="(max-width: 1024px) 100vw, 65vw"
+                  quality={90}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent lg:opacity-100 opacity-50" />
               </motion.div>
             ))}
           </div>
