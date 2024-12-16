@@ -1,9 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { StarIcon, UserGroupIcon, HandThumbUpIcon } from '@heroicons/react/24/solid'
 
 const slides = [
+  {
+    image: '/gallery/luxury-car-1.jpg',
+    alt: 'Luxury Car Detailing'
+  },
+  {
+    image: '/gallery/luxury-car-2.jpg',
+    alt: 'Professional Car Care'
+  },
+  {
+    image: '/gallery/luxury-car-3.jpg',
+    alt: 'Premium Detailing Service'
+  },
+  {
+    image: '/gallery/luxury-car-4.jpg',
+    alt: 'Exotic Car Detailing'
+  },
+  {
+    image: '/gallery/luxury-car-5.jpg',
+    alt: 'Luxury Vehicle Care'
+  },
   {
     image: '/gallery/IMG_05F3E572020C-1.png',
     alt: 'Luxury Car Detailing'
@@ -72,17 +92,51 @@ const features = [
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const progressBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (!isDragging) {
+      const timer = setInterval(() => {
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setCurrentSlide((prev) => (prev + 1) % slides.length)
+          setIsTransitioning(false)
+        }, 500)
+      }, 5000)
+      return () => clearInterval(timer)
+    }
+  }, [isDragging])
+
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (progressBarRef.current) {
+      const rect = progressBarRef.current.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const percentage = x / rect.width
+      const slideIndex = Math.min(
+        Math.floor(percentage * slides.length),
+        slides.length - 1
+      )
       setIsTransitioning(true)
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length)
+        setCurrentSlide(slideIndex)
         setIsTransitioning(false)
-      }, 500)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
+      }, 300)
+    }
+  }
+
+  const handleProgressBarDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDragging && progressBarRef.current) {
+      const rect = progressBarRef.current.getBoundingClientRect()
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width))
+      const percentage = x / rect.width
+      const slideIndex = Math.min(
+        Math.floor(percentage * slides.length),
+        slides.length - 1
+      )
+      setCurrentSlide(slideIndex)
+    }
+  }
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-secondary">
@@ -171,7 +225,15 @@ export default function HeroSection() {
 
       {/* Slide Indicators */}
       <div className="absolute bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30">
-        <div className="relative w-32 h-1 bg-white/20 rounded-full overflow-hidden">
+        <div 
+          ref={progressBarRef}
+          className="relative w-32 h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer"
+          onClick={handleProgressBarClick}
+          onMouseDown={() => setIsDragging(true)}
+          onMouseUp={() => setIsDragging(false)}
+          onMouseLeave={() => setIsDragging(false)}
+          onMouseMove={handleProgressBarDrag}
+        >
           <motion.div
             className="absolute left-0 top-0 h-full bg-primary rounded-full"
             initial={{ width: '0%' }}
