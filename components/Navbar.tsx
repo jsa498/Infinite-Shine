@@ -52,9 +52,9 @@ export default function Navbar() {
   }, [lastScrollY, hideTimeout])
 
   const navClasses = `
-    fixed z-50 transition-all duration-300
+    fixed z-[9999] transition-all duration-300 w-full
     ${scrollPosition > 50 
-      ? 'bg-white/10 backdrop-blur-md rounded-full left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] top-4' 
+      ? 'bg-white/10 backdrop-blur-lg shadow-lg rounded-full left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] top-2 lg:top-4' 
       : 'bg-transparent w-full top-0'
     }
     ${isVisible ? 'translate-y-0' : '-translate-y-[200%]'}
@@ -62,8 +62,8 @@ export default function Navbar() {
 
   return (
     <nav className={navClasses}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
@@ -95,10 +95,10 @@ export default function Navbar() {
               Pricing
             </Link>
             <Link 
-              href="#gallery" 
+              href="#our-work" 
               className="text-white hover:text-primary transition-all duration-300"
             >
-              Gallery
+              Our Work
             </Link>
           </div>
 
@@ -152,10 +152,10 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-20 left-0 right-0 md:hidden bg-secondary border-t border-gray-800 shadow-xl"
-            style={{ maxHeight: 'calc(100vh - 5rem)', overflowY: 'auto' }}
+            className="fixed top-14 sm:top-16 lg:top-20 left-0 right-0 md:hidden bg-secondary/95 backdrop-blur-lg border-t border-gray-800 shadow-xl"
+            style={{ maxHeight: 'calc(100vh - 3.5rem)', overflowY: 'auto' }}
           >
-            <div className="flex flex-col items-center py-6 space-y-4 backdrop-blur-none bg-secondary">
+            <div className="flex flex-col items-center py-4 space-y-3 backdrop-blur-none bg-secondary">
               <Link
                 href="/"
                 className="text-white hover:text-primary transition-all duration-300 text-lg w-full text-center py-2"
@@ -171,11 +171,11 @@ export default function Navbar() {
                 Pricing
               </Link>
               <Link
-                href="#gallery"
+                href="#our-work"
                 className="text-white hover:text-primary transition-all duration-300 text-lg w-full text-center py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Gallery
+                Our Work
               </Link>
               <div className="pt-4 flex flex-col items-center space-y-4 w-full px-6">
                 <Link 

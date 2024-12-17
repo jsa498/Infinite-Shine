@@ -1,12 +1,44 @@
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { PhoneIcon, ClockIcon } from '@heroicons/react/24/outline'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
+
+  const formRef = useRef<HTMLFormElement>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!formRef.current) return
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      await emailjs.sendForm(
+        'service_v7y8ajt',
+        'template_y719ixn',
+        formRef.current,
+        'gLnbWO7yB2o_UcNcn'
+      )
+      setSubmitStatus('success')
+      if (formRef.current) {
+        formRef.current.reset()
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      console.error('Error sending email:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="contact" className="py-16 bg-secondary">
@@ -55,32 +87,71 @@ export default function Contact() {
             </div>
 
             {/* Contact Form */}
-            <form className="space-y-4 mt-6">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
-                />
-              </div>
-              <div>
-                <textarea
-                  rows={4}
-                  placeholder="Your Message"
-                  className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 resize-none text-sm"
-                />
-              </div>
-              <button className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 text-sm">
-                Send Message
-              </button>
-            </form>
+            <div className="mt-8">
+              <h3 className="text-xl font-bold text-white mb-6">Have any questions?</h3>
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    name="user_name"
+                    placeholder="Your Name"
+                    required
+                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="user_contact"
+                    placeholder="Preferred Contact Number or Email"
+                    required
+                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    placeholder="Your Message"
+                    required
+                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 resize-none text-sm"
+                  />
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 text-sm flex items-center justify-center ${
+                    isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center">
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    'Send Message'
+                  )}
+                </motion.button>
+
+                {submitStatus === 'success' && (
+                  <p className="text-green-500 text-sm text-center mt-2">
+                    Message sent successfully! We'll get back to you soon.
+                  </p>
+                )}
+
+                {submitStatus === 'error' && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    There was an error sending your message. Please try again.
+                  </p>
+                )}
+              </form>
+            </div>
           </motion.div>
 
           {/* Map */}
@@ -107,14 +178,14 @@ export default function Contact() {
                 </button>
               </div>
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83435.3436943006!2d-123.08258056640624!3d49.193834452334684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d96d1ddc9db9%3A0xd58598c5e4700c81!2sExotic%20Auto%20Detailing!5e0!3m2!1sen!2sca!4v1734147729111!5m2!1sen!2sca"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83435.3436943006!2d-123.08258056640624!3d49.193834452334684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d96d1ddc9db9%3A0xd58598c5e4700c81!2sExotic%20Auto%20Detailing!5e0!3m2!1sen!2sca!4v1734147729111!5m2!1sen!2sca&title=0&address=0&showinfo=0"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale hover:grayscale-0 transition-all duration-500"
+                className="transition-all duration-500"
               />
             </div>
           </motion.div>

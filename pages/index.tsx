@@ -21,6 +21,11 @@ const Pricing = dynamic(() => import('../components/Pricing'), {
   suspense: true
 })
 
+const OurWork = dynamic(() => import('../components/OurWork'), {
+  loading: () => <LoadingFallback />,
+  suspense: true
+})
+
 const Contact = dynamic(() => import('../components/Contact'), {
   loading: () => <LoadingFallback />,
   suspense: true
@@ -56,6 +61,13 @@ export default function Home() {
         {isClient && (
           <Suspense fallback={<LoadingFallback />}>
             <Pricing />
+          </Suspense>
+        )}
+
+        {/* Our Work Section */}
+        {isClient && (
+          <Suspense fallback={<LoadingFallback />}>
+            <OurWork />
           </Suspense>
         )}
 

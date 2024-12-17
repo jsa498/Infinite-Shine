@@ -141,8 +141,8 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-secondary">
       {/* Content Section */}
-      <div className="relative w-full lg:absolute lg:left-0 lg:top-0 lg:w-[45%] min-h-screen z-20">
-        <div className="h-full flex flex-col justify-center px-6 lg:px-12 py-20 lg:py-0 bg-secondary/90 lg:bg-transparent">
+      <div className="relative w-full lg:absolute lg:left-0 lg:top-0 lg:w-[45%] min-h-screen z-[1]">
+        <div className="h-full flex flex-col justify-center px-4 sm:px-6 lg:px-12 pt-20 sm:pt-20 lg:pt-20 pb-20 lg:pb-0 bg-secondary/90 lg:bg-transparent">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -194,34 +194,95 @@ export default function HeroSection() {
 
       {/* Slider Section */}
       <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[65%] h-[400px] lg:h-screen">
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full overflow-hidden">
           <div className="flex lg:block w-full h-full">
-            {slides.map((slide, index) => (
-              <motion.div
-                key={slide.image}
-                className={`relative w-full h-full flex-shrink-0 ${
-                  index === currentSlide ? 'lg:block' : 'lg:hidden'
-                }`}
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: index === currentSlide ? 1 : 0,
-                  scale: index === currentSlide ? 1 : 1.1,
-                  x: `${(index - currentSlide) * 100}%`
-                }}
-                transition={{ duration: 0.7 }}
-              >
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  className="object-cover object-center"
-                  priority={index === 0}
-                  sizes="(max-width: 1024px) 100vw, 65vw"
-                  quality={90}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent lg:opacity-100 opacity-50" />
-              </motion.div>
-            ))}
+            {slides.map((slide, index) => {
+              const isNext = (currentSlide + 1) % slides.length === index
+              const isPrev = (currentSlide - 1 + slides.length) % slides.length === index
+              const isCurrent = currentSlide === index
+
+              return (
+                <motion.div
+                  key={slide.image}
+                  className={`relative w-full h-full flex-shrink-0 lg:block ${
+                    isCurrent || isNext || isPrev ? 'block' : 'hidden'
+                  } ${isCurrent ? 'z-20' : isNext ? 'z-10' : 'z-0'}`}
+                  initial={{ 
+                    opacity: 0, 
+                    x: isNext ? '100%' : isPrev ? '-100%' : '0%',
+                    scale: 1
+                  }}
+                  animate={{ 
+                    opacity: isCurrent ? 1 : isNext ? 0.75 : 0,
+                    scale: isCurrent ? 1 : 0.95,
+                    x: isCurrent 
+                      ? '0%' 
+                      : isNext 
+                        ? 'calc(100% + 1.5rem)' 
+                        : 'calc(-100% - 1.5rem)',
+                    zIndex: isCurrent ? 20 : isNext ? 10 : 0
+                  }}
+                  transition={{ 
+                    duration: 0.5,
+                    ease: [0.32, 0.72, 0, 1]
+                  }}
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '1rem',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt}
+                    fill
+                    className={`object-cover object-center transition-all duration-500 ${
+                      isCurrent ? 'opacity-100 scale-100' : isNext ? 'opacity-75 scale-105' : 'opacity-0 scale-95'
+                    }`}
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 65vw"
+                    quality={90}
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent transition-opacity duration-500 ${
+                    isCurrent ? 'lg:opacity-100 opacity-50' : isNext ? 'opacity-60' : 'opacity-75'
+                  }`} />
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Mobile Navigation Arrows */}
+          <div className="lg:hidden absolute inset-x-0 bottom-20 flex justify-between items-center px-6 z-30">
+            <button
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true)
+                  setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+                  setTimeout(() => setIsTransitioning(false), 500)
+                }
+              }}
+              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 -translate-x-2"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true)
+                  setCurrentSlide((prev) => (prev + 1) % slides.length)
+                  setTimeout(() => setIsTransitioning(false), 500)
+                }
+              }}
+              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 translate-x-2"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

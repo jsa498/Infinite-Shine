@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { CheckIcon } from '@heroicons/react/24/outline'
+import BookingModal from './BookingModal'
 
 const packages = [
   {
@@ -63,6 +65,14 @@ export default function Pricing() {
     threshold: 0.1,
   })
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: string } | null>(null)
+
+  const handleSelectPackage = (pkg: { name: string; price: string }) => {
+    setSelectedPackage(pkg)
+    setIsModalOpen(true)
+  }
+
   return (
     <section id="pricing" className="py-24 bg-secondary/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,11 +123,16 @@ export default function Pricing() {
                 ))}
               </ul>
               <div className="mt-8">
-                <button className={`w-full py-3 px-6 rounded-full text-white font-semibold transition-colors ${
-                  pkg.featured ? 'bg-primary hover:bg-primary/90' : 'bg-gray-700 hover:bg-gray-600'
-                }`}>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSelectPackage(pkg)}
+                  className={`w-full py-3 px-6 rounded-full text-white font-semibold transition-colors ${
+                    pkg.featured ? 'bg-primary hover:bg-primary/90' : 'bg-gray-700 hover:bg-gray-600'
+                  }`}
+                >
                   Select Package
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           ))}
@@ -136,6 +151,12 @@ export default function Pricing() {
           </p>
         </motion.div>
       </div>
+
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        selectedPackage={selectedPackage}
+      />
     </section>
   )
 } 
