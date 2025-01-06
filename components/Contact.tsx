@@ -178,7 +178,7 @@ export default function Contact() {
                 </button>
               </div>
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83435.3436943006!2d-123.08258056640624!3d49.193834452334684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d96d1ddc9db9%3A0xd58598c5e4700c81!2sInfinite%20Shine%20Exotics!5e0!3m2!1sen!2sca!4v1734147729111!5m2!1sen!2sca&title=0&address=0&showinfo=0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83545.28821581086!2d-122.79036792510357!3d49.128618480897046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e960b640bd79265%3A0xa5fc3774081dad2e!2sInfinite%20Shine%20Exotics%20Car%20Detailing!5e0!3m2!1sen!2sca!4v1736125950601!5m2!1sen!2sca"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
