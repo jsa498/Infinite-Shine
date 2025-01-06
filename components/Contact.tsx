@@ -2,7 +2,6 @@ import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { PhoneIcon, ClockIcon } from '@heroicons/react/24/outline'
-import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -18,26 +17,28 @@ export default function Contact() {
     e.preventDefault()
     if (!formRef.current) return
 
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
+    const formData = new FormData(formRef.current)
+    const name = formData.get('user_name')
+    const contact = formData.get('user_contact')
+    const message = formData.get('message')
 
-    try {
-      await emailjs.sendForm(
-        'service_v7y8ajt',
-        'template_y719ixn',
-        formRef.current,
-        'gLnbWO7yB2o_UcNcn'
-      )
-      setSubmitStatus('success')
-      if (formRef.current) {
-        formRef.current.reset()
-      }
-    } catch (error) {
-      setSubmitStatus('error')
-      console.error('Error sending email:', error)
-    } finally {
-      setIsSubmitting(false)
+    // Format the message for SMS/messaging apps
+    const formattedMessage = encodeURIComponent(
+      `🚗 New Inquiry from Website\n\n` +
+      `From: ${name}\n` +
+      `Contact: ${contact}\n\n` +
+      `Message:\n${message}\n\n` +
+      `Sent from: Infinite Shine Website`
+    )
+
+    // Open the message in the default messaging app
+    window.location.href = `sms:+16047258010?body=${formattedMessage}`
+    
+    // Reset form
+    if (formRef.current) {
+      formRef.current.reset()
     }
+    setSubmitStatus('success')
   }
 
   return (
