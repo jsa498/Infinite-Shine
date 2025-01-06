@@ -83,9 +83,9 @@ export default function Pricing() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Select Your Premium Detailing Package</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Select Your <span className="text-primary-light">Premium</span> Package</h2>
           <p className="text-lg text-gray-300">
-            Experience the epitome of luxury with our bespoke car detailing packages tailored to your needs.
+            Experience infinite perfection with our bespoke car detailing packages tailored to your needs.
           </p>
         </motion.div>
 
@@ -96,20 +96,20 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative bg-secondary/50 backdrop-blur-sm rounded-2xl p-8 border ${
-                pkg.featured ? 'border-primary' : 'border-gray-700'
-              }`}
+              className={`relative bg-secondary-light/50 backdrop-blur-sm rounded-2xl p-8 border ${
+                pkg.featured ? 'border-primary-light shadow-glow-lg' : 'border-primary/20 shadow-glow'
+              } hover:shadow-glow-lg transition-all duration-300`}
             >
               {pkg.featured && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-primary text-white px-4 py-1 rounded-full text-sm">
+                  <span className="bg-primary text-white px-6 py-1 rounded-full text-sm shadow-glow">
                     Most Popular
                   </span>
                 </div>
               )}
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-white mb-2">{pkg.name}</h3>
-                <div className="text-primary text-4xl font-bold mb-2">
+                <div className="text-primary-light text-4xl font-bold mb-2">
                   ${pkg.price}
                 </div>
                 <p className="text-gray-400">{pkg.description}</p>
@@ -117,7 +117,7 @@ export default function Pricing() {
               <ul className="space-y-4">
                 {pkg.features.map((feature) => (
                   <li key={feature} className="flex items-start">
-                    <CheckIcon className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
+                    <CheckIcon className="h-6 w-6 text-primary-light flex-shrink-0 mr-3" />
                     <span className="text-gray-300">{feature}</span>
                   </li>
                 ))}
@@ -127,8 +127,10 @@ export default function Pricing() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleSelectPackage(pkg)}
-                  className={`w-full py-3 px-6 rounded-full text-white font-semibold transition-colors ${
-                    pkg.featured ? 'bg-primary hover:bg-primary/90' : 'bg-gray-700 hover:bg-gray-600'
+                  className={`w-full py-3 px-6 rounded-full text-white font-semibold transition-all duration-300 ${
+                    pkg.featured 
+                      ? 'bg-primary hover:bg-primary-light shadow-glow hover:shadow-glow-lg' 
+                      : 'bg-secondary-light border border-primary/20 hover:border-primary-light hover:shadow-glow'
                   }`}
                 >
                   Select Package

@@ -41,8 +41,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Exotic Detailing - Luxury Car Care Services</title>
-        <meta name="description" content="Transform your vehicle into a masterpiece of luxury with Exotic Detailing's premium car care services." />
+        <title>Infinite Shine - Luxury Car Care Services</title>
+        <meta name="description" content="Transform your vehicle into a masterpiece of luxury with Infinite Shine's premium car care services." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       

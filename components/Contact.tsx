@@ -50,9 +50,9 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-white mb-3">Contact Us</h2>
+          <h2 className="text-3xl font-bold text-white mb-3">Contact <span className="text-primary-light">Us</span></h2>
           <p className="text-base text-gray-300">
-            Explore our state-of-the-art facility where your car receives the royal treatment.
+            Experience our state-of-the-art facility where your car receives the infinite shine treatment.
           </p>
         </motion.div>
 
@@ -67,19 +67,19 @@ export default function Contact() {
             <div>
               <h3 className="text-xl font-bold text-white mb-6">Hours of Operation</h3>
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <ClockIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <div className="flex items-start space-x-3 p-4 rounded-lg bg-secondary-light/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-glow">
+                  <ClockIcon className="h-5 w-5 text-primary-light flex-shrink-0 mt-1" />
                   <div>
                     <p className="text-white font-semibold text-base">AVAILABLE 24/7</p>
                     <p className="text-gray-300 text-sm">Always ready to serve you</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <PhoneIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <div className="flex items-start space-x-3 p-4 rounded-lg bg-secondary-light/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-glow">
+                  <PhoneIcon className="h-5 w-5 text-primary-light flex-shrink-0 mt-1" />
                   <div>
                     <p className="text-white font-semibold text-base">Contact Number</p>
-                    <a href="tel:+16045120061" className="text-gray-300 text-sm hover:text-primary transition-all duration-300">
-                      +1 (604) 512-0061
+                    <a href="tel:+16047258010" className="text-gray-300 text-sm hover:text-primary-light transition-all duration-300">
+                      +1 (604) 725-8010
                     </a>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ export default function Contact() {
                     name="user_name"
                     placeholder="Your Name"
                     required
-                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
+                    className="w-full px-3 py-2 bg-secondary-light/50 border border-primary/20 rounded-lg focus:outline-none focus:border-primary-light text-white placeholder-gray-400 text-sm shadow-glow"
                   />
                 </div>
                 <div>
@@ -105,7 +105,7 @@ export default function Contact() {
                     name="user_contact"
                     placeholder="Preferred Contact Number or Email"
                     required
-                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 text-sm"
+                    className="w-full px-3 py-2 bg-secondary-light/50 border border-primary/20 rounded-lg focus:outline-none focus:border-primary-light text-white placeholder-gray-400 text-sm shadow-glow"
                   />
                 </div>
                 <div>
@@ -114,7 +114,7 @@ export default function Contact() {
                     rows={4}
                     placeholder="Your Message"
                     required
-                    className="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-400 resize-none text-sm"
+                    className="w-full px-3 py-2 bg-secondary-light/50 border border-primary/20 rounded-lg focus:outline-none focus:border-primary-light text-white placeholder-gray-400 resize-none text-sm shadow-glow"
                   />
                 </div>
                 <motion.button
@@ -122,7 +122,7 @@ export default function Contact() {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 text-sm flex items-center justify-center ${
+                  className={`w-full bg-primary hover:bg-primary-light text-white font-semibold py-2.5 rounded-lg transition-all duration-300 text-sm flex items-center justify-center shadow-glow hover:shadow-glow-lg ${
                     isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
                   }`}
                 >
@@ -178,7 +178,7 @@ export default function Contact() {
                 </button>
               </div>
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83435.3436943006!2d-123.08258056640624!3d49.193834452334684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d96d1ddc9db9%3A0xd58598c5e4700c81!2sExotic%20Auto%20Detailing!5e0!3m2!1sen!2sca!4v1734147729111!5m2!1sen!2sca&title=0&address=0&showinfo=0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83435.3436943006!2d-123.08258056640624!3d49.193834452334684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d96d1ddc9db9%3A0xd58598c5e4700c81!2sInfinite%20Shine%20Exotics!5e0!3m2!1sen!2sca!4v1734147729111!5m2!1sen!2sca&title=0&address=0&showinfo=0"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

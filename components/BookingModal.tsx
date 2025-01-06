@@ -17,7 +17,7 @@ interface BookingModalProps {
 
 const generateMessageTemplate = (packageName: string) => {
   return encodeURIComponent(
-    `Hi Exotic Detailing,\n\nI'm interested in booking the ${packageName}.\n\nMy availability is: [Please specify your preferred date and time]\n\nPlease contact me to confirm the booking.\n\nThank you!`
+    `Hi Infinite Shine,\n\nI'm interested in booking the ${packageName}.\n\nMy availability is: [Please specify your preferred date and time]\n\nPlease contact me to confirm the booking.\n\nThank you!`
   )
 }
 
@@ -27,12 +27,12 @@ export default function BookingModal({ isOpen, onClose, selectedPackage }: Booki
   if (!selectedPackage) return null
 
   const handleCallNow = () => {
-    window.location.href = 'tel:+16045120061'
+    window.location.href = 'tel:+16047258010'
   }
 
   const handleMessageNow = () => {
     const messageTemplate = generateMessageTemplate(selectedPackage.name)
-    window.location.href = `sms:+16045120061&body=${messageTemplate}`
+    window.location.href = `sms:+16047258010&body=${messageTemplate}`
   }
 
   return (

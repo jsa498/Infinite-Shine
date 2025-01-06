@@ -1,78 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { StarIcon, UserGroupIcon, HandThumbUpIcon } from '@heroicons/react/24/solid'
-
-const slides = [
-  {
-    image: '/gallery/luxury-car-1.jpg',
-    alt: 'Luxury Car Detailing'
-  },
-  {
-    image: '/gallery/luxury-car-2.jpg',
-    alt: 'Professional Car Care'
-  },
-  {
-    image: '/gallery/luxury-car-3.jpg',
-    alt: 'Premium Detailing Service'
-  },
-  {
-    image: '/gallery/luxury-car-4.jpg',
-    alt: 'Exotic Car Detailing'
-  },
-  {
-    image: '/gallery/luxury-car-5.jpg',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_05F3E572020C-1.png',
-    alt: 'Luxury Car Detailing'
-  },
-  {
-    image: '/gallery/IMG_2434525969D0-1.png',
-    alt: 'Professional Car Care'
-  },
-  {
-    image: '/gallery/IMG_3EB58DD25C6A-1.png',
-    alt: 'Premium Detailing Service'
-  },
-  {
-    image: '/gallery/IMG_42E09B7AE097-1.png',
-    alt: 'Exotic Car Detailing'
-  },
-  {
-    image: '/gallery/IMG_4E7600CC6150-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_4E91089CEAA6-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_6AB0D65EBCF4-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_794DA37856DE-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_9FBB0810130B-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_B53794057176-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_DAD1619AE95C-1.png',
-    alt: 'Luxury Vehicle Care'
-  },
-  {
-    image: '/gallery/IMG_DB094C056616-1.png',
-    alt: 'Luxury Vehicle Care'
-  }
-]
 
 const features = [
   {
@@ -89,223 +17,152 @@ const features = [
   }
 ]
 
+// Enhanced shine animations
+const textShine = {
+  initial: { 
+    backgroundPosition: '-200% center',
+    opacity: 0.9
+  },
+  animate: {
+    backgroundPosition: '200% center',
+    opacity: 1,
+    transition: {
+      duration: 3,
+      ease: 'linear',
+      repeat: Infinity,
+      opacity: {
+        duration: 2,
+        yoyo: Infinity,
+        ease: 'easeInOut',
+      }
+    }
+  }
+}
+
+const glowPulse = {
+  initial: { 
+    textShadow: '0 0 7px rgba(187, 134, 252, 0)',
+    scale: 1
+  },
+  animate: {
+    textShadow: [
+      '0 0 7px rgba(187, 134, 252, 0)',
+      '0 0 10px rgba(187, 134, 252, 0.3)',
+      '0 0 21px rgba(187, 134, 252, 0.5)',
+      '0 0 42px rgba(187, 134, 252, 0.4)',
+      '0 0 82px rgba(187, 134, 252, 0.2)',
+      '0 0 92px rgba(187, 134, 252, 0.1)',
+      '0 0 7px rgba(187, 134, 252, 0)',
+    ],
+    scale: [1, 1.01, 1],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: 'easeInOut'
+    }
+  }
+}
+
 export default function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
-  const progressBarRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!isDragging) {
-      const timer = setInterval(() => {
-        setIsTransitioning(true)
-        setTimeout(() => {
-          setCurrentSlide((prev) => (prev + 1) % slides.length)
-          setIsTransitioning(false)
-        }, 500)
-      }, 5000)
-      return () => clearInterval(timer)
-    }
-  }, [isDragging])
-
-  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (progressBarRef.current) {
-      const rect = progressBarRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const percentage = x / rect.width
-      const slideIndex = Math.min(
-        Math.floor(percentage * slides.length),
-        slides.length - 1
-      )
-      setIsTransitioning(true)
-      setTimeout(() => {
-        setCurrentSlide(slideIndex)
-        setIsTransitioning(false)
-      }, 300)
-    }
-  }
-
-  const handleProgressBarDrag = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isDragging && progressBarRef.current) {
-      const rect = progressBarRef.current.getBoundingClientRect()
-      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width))
-      const percentage = x / rect.width
-      const slideIndex = Math.min(
-        Math.floor(percentage * slides.length),
-        slides.length - 1
-      )
-      setCurrentSlide(slideIndex)
-    }
-  }
-
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-secondary">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="object-cover w-full h-full md:object-right"
+          style={{ filter: 'brightness(0.7)' }}
+        >
+          <source src="/gallery/infi.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/70 to-transparent lg:via-secondary/60 lg:to-transparent" />
+      </div>
+
       {/* Content Section */}
-      <div className="relative w-full lg:absolute lg:left-0 lg:top-0 lg:w-[45%] min-h-screen z-[1]">
-        <div className="h-full flex flex-col justify-center px-4 sm:px-6 lg:px-12 pt-20 sm:pt-20 lg:pt-20 pb-20 lg:pb-0 bg-secondary/90 lg:bg-transparent">
+      <div className="relative w-full lg:w-[50%] min-h-screen z-[1]">
+        <div className="h-full flex flex-col justify-center px-6 sm:px-8 lg:px-16 pt-32 pb-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-xl mx-auto lg:mx-0"
+            className="max-w-2xl"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
-              Experience Luxury Car Detailing
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-8 leading-[1.1]">
+              Infinite{' '}
+              <motion.span
+                initial="initial"
+                animate="animate"
+                variants={glowPulse}
+                className="relative inline-block"
+              >
+                <motion.span
+                  initial="initial"
+                  animate="animate"
+                  variants={textShine}
+                  className="text-transparent bg-clip-text relative z-10"
+                  style={{
+                    backgroundImage: 'linear-gradient(to right, #9C27B0, #BB86FC, #BB86FC, #9C27B0)',
+                    backgroundSize: '200% auto',
+                  }}
+                >
+                  Shine
+                </motion.span>
+                <motion.div
+                  className="absolute -inset-1 bg-primary/20 rounded-lg blur-lg z-0"
+                  animate={{
+                    opacity: [0.2, 0.4, 0.2],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                  }}
+                />
+              </motion.span>{' '}
+              <br className="hidden md:block" /> Exotics
             </h1>
-            <p className="text-lg text-gray-300 mb-8">
-              Discover the epitome of elegance and professionalism with Exotic Detailing.
-              Transform your vehicle into a masterpiece of luxury.
+            <p className="text-xl sm:text-2xl text-gray-300 mb-12 leading-relaxed">
+              Experience the pinnacle of automotive perfection. Where every detail shines infinitely.
             </p>
 
             {/* Features */}
-            <div className="grid grid-cols-1 gap-6 mb-12">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-8 sm:mb-12">
               {features.map((feature) => {
                 const Icon = feature.icon
                 return (
-                  <div key={feature.title} className="flex items-center space-x-4">
-                    <Icon className="h-8 w-8 text-primary" />
-                    <span className="text-white font-semibold tracking-wider">{feature.title}</span>
+                  <div 
+                    key={feature.title} 
+                    className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-lg bg-secondary-light/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-glow group"
+                  >
+                    <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-light group-hover:scale-110 transition-transform duration-300" />
+                    <span className="text-white font-semibold tracking-wider text-base sm:text-lg">{feature.title}</span>
                   </div>
                 )
               })}
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6">
               <a 
                 href="#contact"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 text-center flex items-center justify-center space-x-2"
+                className="bg-primary hover:bg-primary-light text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 text-center flex items-center justify-center space-x-2 shadow-glow hover:shadow-glow-lg"
               >
                 <span>CONTACT US</span>
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
               <a
                 href="#services"
-                className="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 text-center"
+                className="border-2 border-primary-light text-white hover:bg-primary-light hover:border-primary-light px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 text-center shadow-glow hover:shadow-glow-lg"
               >
                 LEARN MORE
               </a>
             </div>
           </motion.div>
-        </div>
-      </div>
-
-      {/* Slider Section */}
-      <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[65%] h-[400px] lg:h-screen">
-        <div className="relative h-full w-full overflow-hidden">
-          <div className="flex lg:block w-full h-full">
-            {slides.map((slide, index) => {
-              const isNext = (currentSlide + 1) % slides.length === index
-              const isPrev = (currentSlide - 1 + slides.length) % slides.length === index
-              const isCurrent = currentSlide === index
-
-              return (
-                <motion.div
-                  key={slide.image}
-                  className={`relative w-full h-full flex-shrink-0 lg:block ${
-                    isCurrent || isNext || isPrev ? 'block' : 'hidden'
-                  } ${isCurrent ? 'z-20' : isNext ? 'z-10' : 'z-0'}`}
-                  initial={{ 
-                    opacity: 0, 
-                    x: isNext ? '100%' : isPrev ? '-100%' : '0%',
-                    scale: 1
-                  }}
-                  animate={{ 
-                    opacity: isCurrent ? 1 : isNext ? 0.75 : 0,
-                    scale: isCurrent ? 1 : 0.95,
-                    x: isCurrent 
-                      ? '0%' 
-                      : isNext 
-                        ? 'calc(100% + 1.5rem)' 
-                        : 'calc(-100% - 1.5rem)',
-                    zIndex: isCurrent ? 20 : isNext ? 10 : 0
-                  }}
-                  transition={{ 
-                    duration: 0.5,
-                    ease: [0.32, 0.72, 0, 1]
-                  }}
-                  style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '1rem',
-                    overflow: 'hidden'
-                  }}
-                >
-                  <Image
-                    src={slide.image}
-                    alt={slide.alt}
-                    fill
-                    className={`object-cover object-center transition-all duration-500 ${
-                      isCurrent ? 'opacity-100 scale-100' : isNext ? 'opacity-75 scale-105' : 'opacity-0 scale-95'
-                    }`}
-                    priority={index === 0}
-                    sizes="(max-width: 1024px) 100vw, 65vw"
-                    quality={90}
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-r from-secondary via-secondary/50 to-transparent transition-opacity duration-500 ${
-                    isCurrent ? 'lg:opacity-100 opacity-50' : isNext ? 'opacity-60' : 'opacity-75'
-                  }`} />
-                </motion.div>
-              )
-            })}
-          </div>
-
-          {/* Mobile Navigation Arrows */}
-          <div className="lg:hidden absolute inset-x-0 bottom-20 flex justify-between items-center px-6 z-30">
-            <button
-              onClick={() => {
-                if (!isTransitioning) {
-                  setIsTransitioning(true)
-                  setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-                  setTimeout(() => setIsTransitioning(false), 500)
-                }
-              }}
-              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 -translate-x-2"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={() => {
-                if (!isTransitioning) {
-                  setIsTransitioning(true)
-                  setCurrentSlide((prev) => (prev + 1) % slides.length)
-                  setTimeout(() => setIsTransitioning(false), 500)
-                }
-              }}
-              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 translate-x-2"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Slide Indicators */}
-      <div className="absolute bottom-4 lg:bottom-8 left-1/2 lg:left-12 transform lg:transform-none -translate-x-1/2 lg:translate-x-0 z-30">
-        <div 
-          ref={progressBarRef}
-          className="relative w-32 h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer"
-          onClick={handleProgressBarClick}
-          onMouseDown={() => setIsDragging(true)}
-          onMouseUp={() => setIsDragging(false)}
-          onMouseLeave={() => setIsDragging(false)}
-          onMouseMove={handleProgressBarDrag}
-        >
-          <motion.div
-            className="absolute left-0 top-0 h-full bg-primary rounded-full"
-            initial={{ width: '0%' }}
-            animate={{ 
-              width: `${((currentSlide + 1) / slides.length) * 100}%`
-            }}
-            transition={{ duration: 0.3 }}
-          />
         </div>
       </div>
     </section>

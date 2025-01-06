@@ -7,12 +7,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#D4AF37', // Gold color for primary elements
-        secondary: '#1A1A1A', // Dark background
-        accent: '#FFFFFF', // White for accents
+        primary: '#9C27B0', // Purple color for primary elements
+        'primary-light': '#BB86FC', // Lighter purple for hover states and accents
+        'primary-dark': '#6A0080', // Darker purple for depth
+        secondary: '#000000', // Pure black background
+        'secondary-light': '#1A1A1A', // Slightly lighter black for cards and sections
+        accent: '#FFFFFF', // White for accents and text
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        'glow': '0 0 15px rgba(156, 39, 176, 0.3)', // Purple glow effect
+        'glow-lg': '0 0 30px rgba(156, 39, 176, 0.4)', // Larger purple glow
       },
     },
   },

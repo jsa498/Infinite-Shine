@@ -64,9 +64,9 @@ export default function Services() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Exclusive Detailing Services</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Exclusive Detailing <span className="text-primary-light">Services</span></h2>
           <p className="text-lg text-gray-300">
-            Our services are designed to cater to the discerning car owner, offering unparalleled attention to detail and luxurious finishes.
+            Our services are designed to deliver an infinite shine, offering unparalleled attention to detail and luxurious finishes.
           </p>
         </motion.div>
 
@@ -79,9 +79,9 @@ export default function Services() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-secondary/50 backdrop-blur-sm p-6 rounded-lg border border-primary/20 hover:border-primary/40 transition-colors"
+                className="bg-secondary-light/50 backdrop-blur-sm p-8 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-glow hover:shadow-glow-lg group"
               >
-                <IconComponent className="h-12 w-12 text-primary mb-4" />
+                <IconComponent className="h-12 w-12 text-primary-light mb-4 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
                 <p className="text-gray-300">{service.description}</p>
               </motion.div>
